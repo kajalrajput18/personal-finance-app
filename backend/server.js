@@ -18,6 +18,7 @@ app.use(express.json());
 app.use("/api/auth", authRoutes);
 app.use("/api/expenses", require("./routes/expenseRoutes"));
 app.use("/api/income", require("./routes/incomeRoutes"));
+app.use("/api/dashboard", require("./routes/dashboardRoutes"));
 
 app.get("/", (req, res) => {
   res.send("Personal Finance Backend is running 🚀");
