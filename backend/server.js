@@ -6,6 +6,7 @@ const connectDB = require("./configs/db");
 
 const authRoutes = require("./routes/authRoutes");
 const { protect } = require("./middleware/authMiddleware");
+const aiRoutes = require("./routes/aiRoutes");
 
 dotenv.config(); 
 
@@ -20,6 +21,7 @@ app.use("/api/expenses", require("./routes/expenseRoutes"));
 app.use("/api/income", require("./routes/incomeRoutes"));
 app.use("/api/dashboard", require("./routes/dashboardRoutes"));
 app.use("/api/budgets", require("./routes/budgetRoutes"));
+app.use("/api/ai", aiRoutes);
 
 app.get("/", (req, res) => {
   res.send("Personal Finance Backend is running 🚀");
