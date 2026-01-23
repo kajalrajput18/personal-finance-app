@@ -1,31 +1,70 @@
-import React from 'react'
-import { BrowserRouter as Router, Routes, Route, Navigate} from 'react-router-dom';
-import Login from './pages/Auth/Login';
-import SignUp from './pages/Auth/SignUp';
-import Home from './pages/Dashboard/Home';
-import Income from './pages/Dashboard/Income';
-import Expense from './pages/Dashboard/Expense';
+import React from "react";
+import { Routes, Route, Navigate } from "react-router-dom";
+
+import Login from "./pages/Auth/Login";
+import SignUp from "./pages/Auth/SignUp";
+
+import Home from "./pages/Dashboard/Home";
+import Income from "./pages/Dashboard/Income";
+import Expense from "./pages/Dashboard/Expense";
+
+import ProtectedRoute from "./components/common/ProtectedRoute";
+import DashboardLayout from "./layouts/DashboardLayout";
+
 const App = () => {
   return (
-    <div>
-      <Router>
-        <Routes>
-          <Route path="/" element={<Root/>} />
-          <Route path="/login" element={<Login/>} />
-          <Route path="/signUp" element={<SignUp/>} />
-          <Route path="/dashboard" element={<Home/>} />
-          <Route path="/income" element={<Income/>} />
-          <Route path="/expense" element={<Expense/>} />
-        </Routes>
-      </Router>
-    </div>
-  )
-}
+    <Routes>
+      {/* Public Routes */}
+      <Route path="/login" element={localStorage.getItem("token") ? <Navigate to="/dashboard" /> : <Login />} />
+      <Route path="/signup" element={<SignUp />} />
 
-export default App
+      {/* Protected Routes */}
+      <Route
+        path="/dashboard"
+        element={
+          <ProtectedRoute>
+            <DashboardLayout>
+            <Home />
+            </DashboardLayout>
+          </ProtectedRoute>
+        }
+      />
 
-const Root = () => {
-  const isAuthenticated = !!localStorage.getItem('token');
+      <Route
+        path="/income"
+        element={
+          <ProtectedRoute>
+            <DashboardLayout>
+            <Income />
+            </DashboardLayout>
+          </ProtectedRoute>
+        }
+      />
 
-  return isAuthenticated ? (<Navigate to="/dashboard" />) : (<Navigate to="/login" />);
+      <Route
+        path="/expense"
+        element={
+          <ProtectedRoute>
+            <DashboardLayout>
+            <Expense />
+            </DashboardLayout>
+          </ProtectedRoute>
+        }
+      />
+
+      {/* Default Route */}
+      <Route
+        path="/"
+        element={
+          localStorage.getItem("token") ? (
+            <Navigate to="/dashboard" />
+          ) : (
+            <Navigate to="/login" />
+          )
+        }
+      />
+    </Routes>
+  );
 };
+
+export default App;
