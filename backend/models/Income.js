@@ -19,6 +19,10 @@ const incomeSchema = new mongoose.Schema(
       type: Date,
       default: Date.now,
     },
+    category: {
+    type: String,   
+    required: true,
+  },
   },
   { timestamps: true }
 );
