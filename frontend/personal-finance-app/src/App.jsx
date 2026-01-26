@@ -7,6 +7,8 @@ import SignUp from "./pages/Auth/SignUp";
 import Home from "./pages/Dashboard/Home";
 import Income from "./pages/Dashboard/Income";
 import Expense from "./pages/Dashboard/Expense";
+import Budget from "./pages/Dashboard/Budget";
+import Insights from "./pages/Dashboard/Insights";
 
 import ProtectedRoute from "./components/common/ProtectedRoute";
 import DashboardLayout from "./layouts/DashboardLayout";
@@ -24,7 +26,7 @@ const App = () => {
         element={
           <ProtectedRoute>
             <DashboardLayout>
-            <Home />
+              <Home />
             </DashboardLayout>
           </ProtectedRoute>
         }
@@ -35,7 +37,7 @@ const App = () => {
         element={
           <ProtectedRoute>
             <DashboardLayout>
-            <Income />
+              <Income />
             </DashboardLayout>
           </ProtectedRoute>
         }
@@ -46,7 +48,29 @@ const App = () => {
         element={
           <ProtectedRoute>
             <DashboardLayout>
-            <Expense />
+              <Expense />
+            </DashboardLayout>
+          </ProtectedRoute>
+        }
+      />
+
+      <Route
+        path="/budget"
+        element={
+          <ProtectedRoute>
+            <DashboardLayout>
+              <Budget />
+            </DashboardLayout>
+          </ProtectedRoute>
+        }
+      />
+
+      <Route
+        path="/insights"
+        element={
+          <ProtectedRoute>
+            <DashboardLayout>
+              <Insights />
             </DashboardLayout>
           </ProtectedRoute>
         }

@@ -3,9 +3,11 @@ const Expense = require("../models/Expense");
 //  Add Expense
 exports.addExpense = async (req, res) => {
   try {
+    const { date, ...rest } = req.body;
     const expense = await Expense.create({
       user: req.user._id,
-      ...req.body,
+      ...rest,
+      date: date ? new Date(date) : new Date(),
     });
 
     res.status(201).json(expense);
